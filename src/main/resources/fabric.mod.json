@@ -3,15 +3,15 @@
 	"id": "phlox",
 	"version": "${version}",
 	"name": "Phlox",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Rendering library, allows for shader manipulation",
 	"authors": [
 		"Me!"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://padjokej.dev/phlox",
+		"sources": "https://github.com/PadjokeJ/phlox"
 	},
-	"license": "CC0-1.0",
+	"license": "GPLv3",
 	"icon": "assets/phlox/icon.png",
 	"environment": "*",
 	"entrypoints": {
