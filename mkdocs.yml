@@ -1,0 +1,4 @@
+site_name: Phlox documentation
+site_url: https://docs.padjokej.dev/phlox
+theme:
+  name: material
