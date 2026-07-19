@@ -33,6 +33,20 @@ public class ShaderRegistry {
     }
 
     /**
+     * Register a shader that will always be applied
+     *
+     * @param shaderId The id of the shader within the mod's resources
+     * @return The {@link Shader} object
+     */
+    public static Shader registerAlwaysOn(Identifier shaderId) {
+        Shader shader = new Shader(() -> true, shaderId);
+
+        SHADERS.add(shader);
+
+        return shader;
+    }
+
+    /**
      * Loop over each shader that is registered
      *
      * @param consumer The action to apply to each shader within the registry
