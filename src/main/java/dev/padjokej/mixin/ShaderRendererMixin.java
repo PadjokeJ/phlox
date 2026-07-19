@@ -14,6 +14,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+/**
+ * Allows for shader rendering, by looking into the registry for shaders.
+ * @author padjokej (<a href="https://github.com/PadjokeJ">Github</a>)
+ */
 @Mixin(GameRenderer.class)
 public class ShaderRendererMixin {
     @Shadow
