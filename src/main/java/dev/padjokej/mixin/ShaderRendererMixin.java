@@ -29,6 +29,10 @@ public class ShaderRendererMixin {
     @Final
     private CrossFrameResourcePool resourcePool;
 
+    @Shadow
+    @Final
+    private RenderTarget mainRenderTarget;
+
     @Inject(
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/util/profiling/ProfilerFiller;pop()V",
