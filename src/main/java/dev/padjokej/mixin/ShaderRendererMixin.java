@@ -1,5 +1,6 @@
 package dev.padjokej.mixin;
 
+import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.resource.CrossFrameResourcePool;
 import dev.padjokej.registry.ShaderRegistry;
 import net.minecraft.client.Minecraft;
@@ -28,6 +29,10 @@ public class ShaderRendererMixin {
     @Final
     private CrossFrameResourcePool resourcePool;
 
+    @Shadow
+    @Final
+    private RenderTarget mainRenderTarget;
+
     @Inject(
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/util/profiling/ProfilerFiller;pop()V",
@@ -39,7 +44,7 @@ public class ShaderRendererMixin {
                 PostChain pc = minecraft.getShaderManager()
                         .getPostChain(shader.shaderId(), LevelTargetBundle.MAIN_TARGETS);
                 if (pc != null)
-                    pc.process(minecraft.getMainRenderTarget(), resourcePool);
+                    pc.process(this.mainRenderTarget, resourcePool);
             }
         });
     }
