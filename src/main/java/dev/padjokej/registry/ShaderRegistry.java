@@ -1,6 +1,8 @@
 package dev.padjokej.registry;
 
 import dev.padjokej.Phlox;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.resources.Identifier;
 
 import java.util.HashSet;
@@ -13,6 +15,7 @@ import java.util.function.Supplier;
  *
  * @author padjokej (<a href="https://github.com/PadjokeJ">Github</a>)
  */
+@Environment(EnvType.CLIENT)
 public class ShaderRegistry {
     // This is a set to prevent a shader from being initialized twice
     private static final Set<Shader> SHADERS = new HashSet<>();

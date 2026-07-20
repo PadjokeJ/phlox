@@ -1,31 +1,31 @@
 {
-	"schemaVersion": 1,
-	"id": "phlox",
-	"version": "${version}",
-	"name": "Phlox",
-	"description": "Rendering library, allows for shader manipulation",
-	"authors": [
-		"PadjokeJ"
-	],
-	"contact": {
-		"homepage": "https://padjokej.dev/phlox",
-		"sources": "https://github.com/PadjokeJ/phlox"
-	},
-	"license": "GPLv3",
-	"icon": "assets/phlox/icon.png",
-	"environment": "*",
-	"entrypoints": {
-		"main": [
-			"dev.padjokej.Phlox"
-		]
-	},
-	"mixins": [
-		"phlox.mixins.json"
-	],
-	"depends": {
-		"fabricloader": ">=0.19.3",
-		"minecraft": "~26.1.2",
-		"java": ">=25",
-		"fabric-api": "*"
-	}
+  "schemaVersion": 1,
+  "id": "phlox",
+  "version": "${version}",
+  "name": "Phlox",
+  "description": "Rendering library, allows for shader manipulation",
+  "authors": [
+    "PadjokeJ"
+  ],
+  "contact": {
+    "homepage": "https://docs.padjokej.dev/phlox",
+    "sources": "https://github.com/PadjokeJ/phlox"
+  },
+  "license": "GPLv3",
+  "icon": "assets/phlox/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "dev.padjokej.Phlox"
+    ]
+  },
+  "mixins": [
+    "phlox.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "minecraft": "~26.1.2",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
 }
