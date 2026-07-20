@@ -8,7 +8,7 @@ To use this library, you have to install it with [jitpack](https://jitpack.io/).
 
 To do so you can add the [jitpack](https://jitpack.io/) repository to your `build.gradle`:
 
-```gradle
+```groovy
 maven {
         url "https://jitpack.io"
         content {
@@ -18,7 +18,7 @@ maven {
 
 And add the following implementation to your mod:
 
-```gradle
+```groovy
 implementation 'com.github.PadjokeJ:phlox:1.0.0'
 
 ```
