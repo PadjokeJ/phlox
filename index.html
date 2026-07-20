@@ -389,14 +389,14 @@
 <h2 id="installation">Installation</h2>
 <p>To use this library, you have to install it with <a href="https://jitpack.io/">jitpack</a>.</p>
 <p>To do so you can add the <a href="https://jitpack.io/">jitpack</a> repository to your <code>build.gradle</code>:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>maven {
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>        url &quot;https://jitpack.io&quot;
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        content {
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>            includeGroupAndSubgroups(&quot;com.github&quot;)
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        }}
+<div class="language-groovy highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">maven</span><span class="w"> </span><span class="o">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">        </span><span class="n">url</span><span class="w"> </span><span class="s2">&quot;https://jitpack.io&quot;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">        </span><span class="n">content</span><span class="w"> </span><span class="o">{</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">            </span><span class="n">includeGroupAndSubgroups</span><span class="o">(</span><span class="s2">&quot;com.github&quot;</span><span class="o">)</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">        </span><span class="o">}}</span>
 </span></code></pre></div>
 <p>And add the following implementation to your mod:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>implementation &#39;com.github.PadjokeJ:phlox:1.0.0&#39;
+<div class="language-groovy highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">implementation</span><span class="w"> </span><span class="s1">&#39;com.github.PadjokeJ:phlox:1.0.0&#39;</span>
 </span></code></pre></div>
 <h2 id="registering-a-shader">Registering a shader</h2>
 <p>To register a new shader, you simply have to register it to the <code>ShaderRegistry</code> class:</p>
