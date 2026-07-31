@@ -29,6 +29,10 @@ public class ShaderRendererMixin {
     @Final
     private CrossFrameResourcePool resourcePool;
 
+    @Shadow
+    @Final
+    private RenderTarget mainRenderTarget;
+
     @Inject(
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/util/profiling/ProfilerFiller;pop()V",
@@ -38,7 +42,7 @@ public class ShaderRendererMixin {
         ShaderRegistry.forEach(shader -> {
             if (shader.condition().get()) {
                 if (shader.postChain() != null)
-                    shader.postChain().process(minecraft.getMainRenderTarget(), resourcePool);
+                    shader.postChain().process(mainRenderTarget, resourcePool);
             }
         });
     }
