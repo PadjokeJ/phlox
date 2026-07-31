@@ -29,10 +29,6 @@ public class ShaderRendererMixin {
     @Final
     private CrossFrameResourcePool resourcePool;
 
-    @Shadow
-    @Final
-    private RenderTarget mainRenderTarget;
-
     @Inject(
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/util/profiling/ProfilerFiller;pop()V",
@@ -41,10 +37,8 @@ public class ShaderRendererMixin {
     private void renderShader(CallbackInfo ci) {
         ShaderRegistry.forEach(shader -> {
             if (shader.condition().get()) {
-                PostChain pc = minecraft.getShaderManager()
-                        .getPostChain(shader.shaderId(), LevelTargetBundle.MAIN_TARGETS);
-                if (pc != null)
-                    pc.process(this.mainRenderTarget, resourcePool);
+                if (shader.postChain() != null)
+                    shader.postChain().process(minecraft.getMainRenderTarget(), resourcePool);
             }
         });
     }

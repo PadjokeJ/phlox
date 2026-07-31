@@ -3,6 +3,9 @@ package dev.padjokej.registry;
 import dev.padjokej.Phlox;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.LevelTargetBundle;
+import net.minecraft.client.renderer.PostChain;
 import net.minecraft.resources.Identifier;
 
 import java.util.HashSet;
@@ -63,8 +66,19 @@ public class ShaderRegistry {
      *
      * @param condition The condition for the shader to be rendered
      * @param shaderId  The id of the shader within the mod's resources
+     * @param postChain The shader within the mod's resources
      */
-    public record Shader(Supplier<Boolean> condition, Identifier shaderId) {
+    public record Shader(Supplier<Boolean> condition, Identifier shaderId, PostChain postChain) {
+        /**
+         * Instantiate an immutable shader object
+         *
+         * @param condition The condition for the shader to be rendered
+         * @param shaderId  The id of the shader within the mod's resources
+         */
+        public Shader(Supplier<Boolean> condition, Identifier shaderId) {
+            this(condition, shaderId,
+                    Minecraft.getInstance().getShaderManager().getPostChain(shaderId, LevelTargetBundle.MAIN_TARGETS));
+        }
     }
 
     public static void initialize() {
