@@ -1,5 +1,7 @@
 package dev.padjokej.registry;
 
+import com.mojang.blaze3d.pipeline.RenderTarget;
+import com.mojang.blaze3d.resource.GraphicsResourceAllocator;
 import dev.padjokej.Phlox;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -19,7 +21,7 @@ import java.util.function.Supplier;
  * @author padjokej (<a href="https://github.com/PadjokeJ">Github</a>)
  */
 @Environment(EnvType.CLIENT)
-public class ShaderRegistry {
+public final class ShaderRegistry {
     // This is a set to prevent a shader from being initialized twice
     private static final Set<Shader> SHADERS = new HashSet<>();
 
@@ -78,6 +80,11 @@ public class ShaderRegistry {
         public Shader(Supplier<Boolean> condition, Identifier shaderId) {
             this(condition, shaderId,
                     Minecraft.getInstance().getShaderManager().getPostChain(shaderId, LevelTargetBundle.MAIN_TARGETS));
+        }
+
+        public void process(RenderTarget renderTarget, GraphicsResourceAllocator resourceAllocator) {
+            if (condition.get())
+                postChain.process(renderTarget, resourceAllocator);
         }
     }
 

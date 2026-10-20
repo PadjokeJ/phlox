@@ -32,11 +32,7 @@ public class ShaderRendererMixin {
                     ordinal = 0),
             method = "render")
     private void renderShader(CallbackInfo ci) {
-        ShaderRegistry.forEach(shader -> {
-            if (shader.condition().get()) {
-                if (shader.postChain() != null)
-                    shader.postChain().process(minecraft.getMainRenderTarget(), resourcePool);
-            }
-        });
+        ShaderRegistry.forEach(shader ->
+                shader.process(minecraft.getMainRenderTarget(), resourcePool));
     }
 }
