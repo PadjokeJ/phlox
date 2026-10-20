@@ -1,5 +1,7 @@
 package dev.padjokej.utilities;
 
+import net.minecraft.world.phys.Vec3;
+
 import java.util.random.RandomGenerator;
 import java.util.random.RandomGeneratorFactory;
 
@@ -18,18 +20,18 @@ public class CameraShake {
         return (int) Math.max(timeOfShake + durationMillis - System.currentTimeMillis(), 0);
     }
 
-    public static float[] getShake() {
+    public static Vec3 getShake() {
         if (timeOfShake == -1 || getRemainingMillis() == 0) {
-            return null;
+            return Vec3.ZERO;
         }
 
         float currentIntensity = lerpIntensity();
 
         RandomGenerator rng = RandomGeneratorFactory.getDefault().create();
-        return new float[]{
+        return new Vec3(
                 (rng.nextFloat() - 0.5f) * currentIntensity,
                 (rng.nextFloat() - 0.5f) * currentIntensity,
-                (rng.nextFloat() - 0.5f) * currentIntensity};
+                (rng.nextFloat() - 0.5f) * currentIntensity);
     }
 
     public static float lerpIntensity() {
