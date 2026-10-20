@@ -1,6 +1,7 @@
 package dev.padjokej;
 
 import dev.padjokej.registry.ShaderRegistry;
+import dev.padjokej.utilities.CameraShake;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
@@ -17,5 +18,6 @@ public class Phlox implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ShaderRegistry.initialize();
+        CameraShake.initialize();
     }
 }

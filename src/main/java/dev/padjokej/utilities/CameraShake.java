@@ -1,43 +1,57 @@
 package dev.padjokej.utilities;
 
+import dev.padjokej.Phlox;
+import net.fabricmc.loader.impl.lib.sat4j.core.Vec;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.random.RandomGenerator;
 import java.util.random.RandomGeneratorFactory;
 
 public class CameraShake {
-    public static long timeOfShake = -1;
-    public static int durationMillis = 0;
-    public static float intensity = 0;
+    private static final LinkedList<ShakeModule> CAMERA_SHAKE_LIST = new LinkedList<>();
 
     public static void shake(float intensity, float duration) {
-        durationMillis = (int) (duration * 1000f);
-        timeOfShake = System.currentTimeMillis();
-        CameraShake.intensity = intensity;
-    }
-
-    public static int getRemainingMillis() {
-        return (int) Math.max(timeOfShake + durationMillis - System.currentTimeMillis(), 0);
+        CAMERA_SHAKE_LIST.add(new ShakeModule(System.currentTimeMillis() + (long) (duration * 1000f), intensity));
     }
 
     public static Vec3 getShake() {
-        if (timeOfShake == -1 || getRemainingMillis() == 0) {
-            return Vec3.ZERO;
-        }
-
-        float currentIntensity = lerpIntensity();
+        final long currentTimeMillis = System.currentTimeMillis();
+        Vec3 shake = Vec3.ZERO;
 
         RandomGenerator rng = RandomGeneratorFactory.getDefault().create();
-        return new Vec3(
-                (rng.nextFloat() - 0.5f) * currentIntensity,
-                (rng.nextFloat() - 0.5f) * currentIntensity,
-                (rng.nextFloat() - 0.5f) * currentIntensity);
+
+        Iterator<ShakeModule> iterator = CAMERA_SHAKE_LIST.iterator();
+        while (iterator.hasNext()) {
+            ShakeModule currentShake = iterator.next();
+            if (currentShake.isExpired(currentTimeMillis)) {
+                iterator.remove();
+                continue;
+            }
+
+            shake = shake.add(currentShake.getShake(rng, currentTimeMillis));
+        }
+
+        return shake;
     }
 
-    public static float lerpIntensity() {
-        float t = getRemainingMillis() / ((float) durationMillis);
-        t = 1 - t;
+    public static void initialize() {
+        Phlox.LOGGER.info("Starting phlox camera shake utility");
+    }
 
-        return t * intensity;
+    private record ShakeModule(long endTime, float intensity) {
+        public Vec3 getShake(RandomGenerator rng, long systemTimeMillis) {
+            float currentIntensity = intensity * (endTime - systemTimeMillis) / 1000f;
+
+            return new Vec3(
+                    (rng.nextFloat() - 0.5f) * currentIntensity,
+                    (rng.nextFloat() - 0.5f) * currentIntensity,
+                    (rng.nextFloat() - 0.5f) * currentIntensity);
+        }
+
+        public boolean isExpired(long systemTimeMillis) {
+            return endTime <= systemTimeMillis;
+        }
     }
 }
