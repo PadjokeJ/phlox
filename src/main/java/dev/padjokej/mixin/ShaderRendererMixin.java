@@ -4,6 +4,7 @@ import com.mojang.blaze3d.resource.CrossFrameResourcePool;
 import dev.padjokej.registry.ShaderRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.ShaderManager;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -32,7 +33,9 @@ public class ShaderRendererMixin {
                     ordinal = 0),
             method = "render")
     private void renderShader(CallbackInfo ci) {
+        ShaderManager shaderManager = minecraft.getShaderManager();
+
         ShaderRegistry.forEach(shader ->
-                shader.process(minecraft.getMainRenderTarget(), resourcePool));
+                shader.process(minecraft.getMainRenderTarget(), resourcePool, shaderManager));
     }
 }
