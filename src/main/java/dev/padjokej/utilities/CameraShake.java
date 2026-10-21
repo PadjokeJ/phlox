@@ -1,19 +1,18 @@
 package dev.padjokej.utilities;
 
 import dev.padjokej.Phlox;
-import net.fabricmc.loader.impl.lib.sat4j.core.Vec;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.random.RandomGenerator;
 import java.util.random.RandomGeneratorFactory;
 
 public class CameraShake {
-    private static final LinkedList<ShakeModule> CAMERA_SHAKE_LIST = new LinkedList<>();
+    private static final ConcurrentLinkedDeque<ShakeModule> CAMERA_SHAKE_LIST = new ConcurrentLinkedDeque<>();
 
     public static void shake(float intensity, float duration) {
-        CAMERA_SHAKE_LIST.add(new ShakeModule(System.currentTimeMillis() + (long) (duration * 1000f), intensity));
+        CAMERA_SHAKE_LIST.add(new ShakeModule((long) (duration * 1000f), intensity));
     }
 
     public static Vec3 getShake() {
@@ -40,9 +39,12 @@ public class CameraShake {
         Phlox.LOGGER.info("Starting phlox camera shake utility");
     }
 
-    private record ShakeModule(long endTime, float intensity) {
+    private record ShakeModule(long duration, long endTime, float intensity) {
+        public ShakeModule(long duration, float intensity) {
+            this(duration, System.currentTimeMillis() + duration, intensity);
+        }
         public Vec3 getShake(RandomGenerator rng, long systemTimeMillis) {
-            float currentIntensity = intensity * (endTime - systemTimeMillis) / 1000f;
+            float currentIntensity = intensity * (endTime - systemTimeMillis) / ((float) duration);
 
             return new Vec3(
                     (rng.nextFloat() - 0.5f) * currentIntensity,
